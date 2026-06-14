@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42.sg>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 22:58:55 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/14 21:16:16 by akaung           ###   ########.fr       */
+/*   Updated: 2026/06/14 21:31:53 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void					free_all(t_gnl_list **list, t_gnl_list *clean_node,
 void					polish(t_gnl_list **list);
 int						clear_list(t_gnl_list **list, t_gnl_list **last,
 							int *i);
+double					ft_atof(const char *nptr);
 
 #endif

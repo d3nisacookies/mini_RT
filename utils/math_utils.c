@@ -40,18 +40,17 @@ t_vec3	vec_add(t_vec3 a, t_vec3 b)
 
 double	intersect_sphere(t_ray ray, t_sphere sphere)
 {
-	t_vec3 oc;
-	double a;
-	double b;
-	double c;
-	double discriminant;
-	double t;
+	t_vec3	oc;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	double	t;
 
 	oc = vec_sub(ray.origin, sphere.center);
 	a = vec_dot(ray.direction, ray.direction);
 	b = 2 * (vec_dot(ray.direction, oc));
 	c = (vec_dot(oc, oc) - (sphere.radius * sphere.radius));
-
 	discriminant = (b * b) - (4 * a * c);
 	if (discriminant < 0)
 		return (-1);
@@ -63,4 +62,32 @@ double	intersect_sphere(t_ray ray, t_sphere sphere)
 			return (-1);
 	}
 	return (t);
+}
+
+double	ft_atof(const char *nptr)
+{
+	double	result;
+	int		sign;
+	double	divider;
+
+	result = 0.0;
+	sign = 1;
+	if (*nptr == '-')
+	{
+		sign *= -1;
+		nptr++;
+	}
+	while (*nptr >= '0' && *nptr <= '9')
+		result = result * 10.0 + (*nptr++ - '0');
+	if (*nptr == '.')
+	{
+		nptr++;
+		divider = 10.0;
+		while (*nptr >= '0' && *nptr <= '9')
+		{
+			result += (*nptr++ - '0') / divider;
+			divider *= 10.0;
+		}
+	}
+	return (result * sign);
 }

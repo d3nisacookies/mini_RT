@@ -78,6 +78,9 @@ typedef struct s_scene
 	t_camera		camera;
 	t_light			light;
 	t_object		*objects;
+	int				camera_set;
+	int				light_set;
+	int				ambient_set;
 }					t_scene;
 
 t_vec3				vec_sub(t_vec3 a, t_vec3 b);
@@ -94,5 +97,8 @@ void				camera_init(t_camera *cam);
 t_vec3				compute_lighting(t_ray ray, t_sphere sphere, double t,
 						t_light light, t_ambient ambient, t_vec3 object_color);
 int					color_to_int(t_vec3 color);
+void				free_tokens(char **tokens);
+void				exit_error(char *msg);
+t_vec3				parse_vector(char *str);
 
 #endif

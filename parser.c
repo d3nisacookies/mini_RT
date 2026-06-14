@@ -1,6 +1,6 @@
 #include "mini_RT.h"
 
-void	parse_scene(char **filename, t_scene *scene)
+void	parse_scene(char *filename, t_scene *scene)
 {
 	int		fd;
 	char	*line;
@@ -30,4 +30,12 @@ void	parse_line(char *line, t_scene *scene)
 		parse_plane(line, scene);
 	else if (!strncmp(line, "cy", 2))
 		parse_cylinder(line, scene);
+}
+
+void	exit_error(char *msg)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
+	exit(EXIT_FAILURE);
 }
