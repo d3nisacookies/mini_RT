@@ -15,9 +15,19 @@ SRCS = main.c \
        utils/math_utils.c \
        utils/vec_utils.c \
        camera_init.c \
+       lighting.c \
+       render.c \
+       scene_init.c \
+       parser.c \
+       parse_ambient.c \
+       parse_camera.c \
+       parse_light.c \
+       parse_sphere.c \
+       parse_vector.c \
+       parse_utils.c \
        get_next_line.c \
        get_next_line_utils.c \
-       lighting.c
+	   hooks.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -30,7 +40,7 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) -no-pie $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(MLX_DIR) -I$(LIBFT_DIR) -c $< -o $@

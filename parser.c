@@ -18,18 +18,18 @@ void	parse_scene(char *filename, t_scene *scene)
 
 void	parse_line(char *line, t_scene *scene)
 {
-	if (!strncmp(line, "A", 1))
+	if (!ft_strncmp(line, "A", 1))
 		parse_ambient(line, scene);
-	else if (!strncmp(line, "C", 1))
+	else if (!ft_strncmp(line, "C", 1))
 		parse_camera(line, scene);
-	else if (!strncmp(line, "L", 1))
+	else if (!ft_strncmp(line, "L", 1))
 		parse_light(line, scene);
-	else if (!strncmp(line, "sp", 2))
+	else if (!ft_strncmp(line, "sp", 2))
 		parse_sphere(line, scene);
-	else if (!strncmp(line, "pl", 2))
-		parse_plane(line, scene);
-	else if (!strncmp(line, "cy", 2))
-		parse_cylinder(line, scene);
+	else if (!ft_strncmp(line, "pl", 2))
+		parse_plane();
+	else if (!ft_strncmp(line, "cy", 2))
+		parse_cylinder();
 }
 
 void	exit_error(char *msg)
@@ -38,4 +38,14 @@ void	exit_error(char *msg)
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
 	exit(EXIT_FAILURE);
+}
+
+void parse_plane(void)
+{
+	return ;
+}
+
+void parse_cylinder(void)
+{
+	return ;
 }

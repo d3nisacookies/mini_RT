@@ -88,6 +88,8 @@ t_vec3				vec_add(t_vec3 a, t_vec3 b);
 double				vec_dot(t_vec3 a, t_vec3 b);
 t_vec3				vec_scale(t_vec3 v, double t);
 double				intersect_sphere(t_ray ray, t_sphere sphere);
+int key_handler(int keycode, void *param);
+int close_window(void *param);
 double				vec_length(t_vec3 v);
 t_vec3				vec_normalize(t_vec3 v);
 t_vec3				vec_cross(t_vec3 a, t_vec3 b);
@@ -100,5 +102,17 @@ int					color_to_int(t_vec3 color);
 void				free_tokens(char **tokens);
 void				exit_error(char *msg);
 t_vec3				parse_vector(char *str);
+void				scene_init(t_scene *scene);
+void				parse_cylinder(void);
+void 				parse_plane(void);
+void				parse_scene(char *filename, t_scene *scene);
+void				parse_line(char *line, t_scene *scene);
+void    			parse_ambient(char *line, t_scene *scene);
+void				parse_camera(char *line, t_scene *scene);
+void				parse_light(char *line, t_scene *scene);
+void				parse_sphere(char *line, t_scene *scene);
+void				render(void *mlx, void *win, t_scene *scene);
+t_vec3				trace_ray(t_ray ray, t_scene *scene);
+void				scene_init(t_scene *scene);
 
 #endif

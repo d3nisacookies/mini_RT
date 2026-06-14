@@ -1,59 +1,34 @@
 #include "mini_RT.h"
 
-int	main(void)
+int main(int argc, char **argv)
 {
-	void *mlx;
-	void *win;
-	t_camera cam;
-	t_sphere sphere;
-	t_light light;
-	t_ambient ambient;
-	t_ray ray;
-	t_vec3 color;
-	double t;
+    void    *mlx;
+    void    *win;
+    t_scene scene;
+	size_t	len;
 
-	mlx = mlx_init();
-	if (!mlx)
-		return (1);
-
-	win = mlx_new_window(mlx, WIDTH, HEIGHT, "miniRT");
-	if (!win)
-		return (1);
-
-	cam.position = (t_vec3){0, 0, -5};
-	cam.direction = (t_vec3){0, 0, 1};
-	cam.fov = 70;
-	camera_init(&cam);
-
-	sphere.center = (t_vec3){0, 0, 0};
-	sphere.radius = 1.0;
-	sphere.color = (t_vec3){255, 0, 0};
-
-	light.position = (t_vec3){2, 2, -3};
-	light.colour = (t_vec3){255, 255, 255};
-	light.brightness = 1.0;
-
-	ambient.color = (t_vec3){255, 255, 255};
-	ambient.ratio = 0.2;
-
-	for (int y = 0; y < HEIGHT; y++)
+    if (argc != 2)
 	{
-		for (int x = 0; x < WIDTH; x++)
-		{
-			ray = get_camera_ray(&cam, x, y, WIDTH, HEIGHT);
-			t = intersect_sphere(ray, sphere);
-
-			if (t > 0)
-			{
-				color = compute_lighting(ray, sphere, t, light, ambient,
-						sphere.color);
-				mlx_pixel_put(mlx, win, x, y, color_to_int(color));
-			}
-			else
-				mlx_pixel_put(mlx, win, x, y, 0x000000);
-		}
+		exit_error("usage: ./miniRT <scene.rt>");
 	}
-
-	mlx_loop(mlx);
-	return (0);
+	len = ft_strlen(argv[1]);
+	if (len < 3 || ft_strncmp(argv[1] + (len - 3), ".rt", 3) != 0)
+    	exit_error("file must have .rt extension");
+    scene_init(&scene);
+    parse_scene(argv[1], &scene);
+    if (!scene.camera_set || !scene.light_set || !scene.ambient_set)
+        exit_error("missing required scene element");
+    mlx = mlx_init();
+    if (!mlx)
+        return (1);
+    win = mlx_new_window(mlx, WIDTH, HEIGHT, "miniRT");
+    if (!win)
+	{
+        return (1);
+	}
+	mlx_hook(win, 17, 0, close_window, mlx);
+	mlx_key_hook(win, key_handler, mlx);
+    render(mlx, win, &scene);
+    mlx_loop(mlx);
+    return (0);
 }
