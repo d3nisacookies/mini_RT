@@ -10,7 +10,7 @@ double	clamp(double value, double min, double max)
 }
 
 t_vec3	compute_lighting(t_ray ray, t_sphere sphere, double t, t_light light,
-		t_ambient ambient, t_vec3 object_color)
+		t_ambient ambient, t_vec3 object_color, t_scene *scene)
 {
 	t_vec3	p;
 	t_vec3	normal;
@@ -20,10 +20,21 @@ t_vec3	compute_lighting(t_ray ray, t_sphere sphere, double t, t_light light,
 	t_vec3	light_total;
 	t_vec3	final_color;
 	double	diffuse;
+	double	light_distance;
 
 	p = vec_add(ray.origin, vec_scale(ray.direction, t));
 	normal = vec_normalize(vec_sub(p, sphere.center));
 	light_dir = vec_normalize(vec_sub(light.position, p));
+	light_distance = vec_length(vec_sub(light.position, p));
+
+	if (is_in_shadow(vec_add(p, vec_scale(normal, 1e-4)), light_dir, light_distance, scene))
+	{
+		ambient_term = vec_scale(ambient.color, ambient.ratio);
+		final_color.x = clamp(((object_color.x * ambient_term.x) / 255), 0, 255);
+		final_color.y = clamp(((object_color.y * ambient_term.y) / 255), 0, 255);
+		final_color.z = clamp(((object_color.z * ambient_term.z) / 255), 0, 255);
+		return (final_color);
+	}
 	diffuse = vec_dot(normal, light_dir);
 	if (diffuse < 0)
 		diffuse = 0;

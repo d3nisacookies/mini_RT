@@ -27,7 +27,8 @@ SRCS = main.c \
        parse_utils.c \
        get_next_line.c \
        get_next_line_utils.c \
-	   hooks.c
+	hooks.c \
+       is_in_shadow.c
 
 OBJS = $(SRCS:.c=.o)
 

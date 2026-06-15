@@ -46,7 +46,7 @@ t_vec3 trace_ray(t_ray ray, t_scene *scene)
         obj = obj->next;
     }
     if (closest_obj)
-        return(compute_lighting(ray, closest_obj->sphere, closest_t, scene->light, scene->ambient, closest_obj->sphere.color));
+        return(compute_lighting(ray, closest_obj->sphere, closest_t, scene->light, scene->ambient, closest_obj->sphere.color, scene));
     else
         return ((t_vec3){0,0,0});
 }

@@ -88,16 +88,16 @@ t_vec3				vec_add(t_vec3 a, t_vec3 b);
 double				vec_dot(t_vec3 a, t_vec3 b);
 t_vec3				vec_scale(t_vec3 v, double t);
 double				intersect_sphere(t_ray ray, t_sphere sphere);
-int key_handler(int keycode, void *param);
-int close_window(void *param);
+int					key_handler(int keycode, void *param);
+int					close_window(void *param);
 double				vec_length(t_vec3 v);
 t_vec3				vec_normalize(t_vec3 v);
 t_vec3				vec_cross(t_vec3 a, t_vec3 b);
 t_ray				get_camera_ray(t_camera *cam, int px, int py, int width,
 						int height);
 void				camera_init(t_camera *cam);
-t_vec3				compute_lighting(t_ray ray, t_sphere sphere, double t,
-						t_light light, t_ambient ambient, t_vec3 object_color);
+t_vec3				compute_lighting(t_ray ray, t_sphere sphere, double t, t_light light,
+					t_ambient ambient, t_vec3 object_color, t_scene *scene);
 int					color_to_int(t_vec3 color);
 void				free_tokens(char **tokens);
 void				exit_error(char *msg);
@@ -114,5 +114,6 @@ void				parse_sphere(char *line, t_scene *scene);
 void				render(void *mlx, void *win, t_scene *scene);
 t_vec3				trace_ray(t_ray ray, t_scene *scene);
 void				scene_init(t_scene *scene);
+int					is_in_shadow(t_vec3 p, t_vec3 light_direction, double light_distance, t_scene *scene);
 
 #endif
