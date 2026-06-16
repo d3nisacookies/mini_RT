@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:18:03 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 13:23:03 by akaung           ###   ########.fr       */
+/*   Updated: 2026/06/16 16:02:21 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	parse_scene(char *filename, t_scene *scene)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		exit_error("cannot open file");
+		exit_error("cannot open file", NULL);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -46,12 +46,29 @@ void	parse_line(char *line, t_scene *scene)
 		parse_cylinder();
 }
 
-void	exit_error(char *msg)
+void	exit_error(char *msg, t_scene *scene)
 {
+	if (scene)
+		free_scene(scene);
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
 	exit(EXIT_FAILURE);
+}
+
+void	free_scene(t_scene *scene)
+{
+	t_object	*obj;
+	t_object	*next;
+
+	obj = scene->objects;
+	while (obj)
+	{
+		next = obj->next;
+		free(obj);
+		obj = next;
+	}
+	scene->objects = NULL;
 }
 
 void	parse_plane(void)

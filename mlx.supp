@@ -1,0 +1,35 @@
+{
+   mlx_xopen
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libX11*
+}
+{
+   mlx_xext
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libXext*
+}
+{
+   mlx_xcb
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*/libxcb*
+}
+{
+   mlx_init_leak
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:mlx_init
+}
+{
+   mlx_window_leak
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:mlx_new_window
+}

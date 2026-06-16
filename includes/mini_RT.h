@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 14:56:09 by akaung           ###   ########.fr       */
+/*   Updated: 2026/06/16 16:07:22 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,14 @@ typedef struct s_hit
 	double			light_distance;
 }					t_hit;
 
+typedef struct s_app
+{
+	void	*mlx;
+	void	*win;
+	t_scene	*scene;
+}	t_app;
+
+
 /*
 ** Vector math
 */
@@ -173,8 +181,9 @@ void				free_tokens(char **tokens);
 ** Utils
 */
 void				scene_init(t_scene *scene);
-void				exit_error(char *msg);
-void				setup_mlx(void **mlx, void **win);
+void				exit_error(char *msg, t_scene *scene);
+void				setup_mlx(void **mlx, void **win, t_scene *scene);
+void				free_scene(t_scene *scene);
 
 /*
 ** Hooks

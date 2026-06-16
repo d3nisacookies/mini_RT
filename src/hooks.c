@@ -14,14 +14,22 @@
 
 int	close_window(void *param)
 {
-	(void)param;
+	t_app	*app;
+
+	app = (t_app *)param;
+	free_scene(app->scene);
 	exit(0);
 }
 
 int	key_handler(int keycode, void *param)
 {
-	(void)param;
+	t_app	*app;
+
+	app = (t_app *)param;
 	if (keycode == 65307)
+	{
+		free_scene(app->scene);
 		exit(0);
+	}
 	return (0);
 }

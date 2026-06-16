@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 15:02:49 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 15:02:50 by akaung           ###   ########.fr       */
+/*   Updated: 2026/06/16 15:54:13 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	parse_sphere(char *line, t_scene *scene)
 
 	tokens = ft_split(line, ' ');
 	if (!tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
-		exit_error("Invalid sphere");
+		exit_error("Invalid sphere", scene);
 	obj = malloc(sizeof(t_object));
 	if (!obj)
-		exit_error("malloc failed");
+		exit_error("malloc failed", scene);
 	obj->type = SPHERE;
 	obj->sphere.center = parse_vector(tokens[1]);
 	obj->sphere.radius = ft_atof(tokens[2]) / 2.0;
 	if (obj->sphere.radius <= 0)
 	{
-		exit_error("Invalid sphere radius");
+		exit_error("Invalid sphere radius", scene);
 		free_tokens(tokens);
 	}
 	obj->sphere.color = parse_vector(tokens[3]);
