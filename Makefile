@@ -27,6 +27,7 @@ SRCS = src/main.c \
        src/parser/parse_utils.c \
        src/utils/math_utils.c \
        src/utils/vec_utils.c \
+       src/utils/atof.c \
        gnl/get_next_line.c \
        gnl/get_next_line_utils.c
 

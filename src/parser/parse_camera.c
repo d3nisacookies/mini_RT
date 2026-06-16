@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_camera.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/16 15:01:51 by akaung            #+#    #+#             */
+/*   Updated: 2026/06/16 15:02:16 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mini_RT.h"
 
 void	parse_camera(char *line, t_scene *scene)
 {
-	char **tokens;
+	char	**tokens;
 
 	if (scene->camera_set)
 		exit_error("Multiple cameras");

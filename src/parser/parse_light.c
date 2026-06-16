@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_light.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/16 15:02:28 by akaung            #+#    #+#             */
+/*   Updated: 2026/06/16 15:02:37 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mini_RT.h"
 
 void	parse_light(char *line, t_scene *scene)
 {
-	char **tokens;
+	char	**tokens;
 
 	if (scene->light_set)
 		exit_error("multiple lights");

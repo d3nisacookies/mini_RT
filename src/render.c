@@ -37,8 +37,7 @@ void	render(void *mlx, void *win, t_scene *scene)
 static t_vec3	shade_closest(t_ray ray, t_object *obj
 	, double t, t_scene *scene)
 {
-	return (compute_lighting(ray, obj->sphere, t, scene->light,
-			scene->ambient, obj->sphere.color, scene));
+	return (compute_lighting(ray, obj, t, scene));
 }
 
 t_vec3	trace_ray(t_ray ray, t_scene *scene)

@@ -1,53 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lighting.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/16 14:22:24 by akaung            #+#    #+#             */
+/*   Updated: 2026/06/16 14:54:08 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mini_RT.h"
 
-double	clamp(double value, double min, double max)
+static t_hit	compute_hit(t_ray ray, t_sphere sphere, t_light light, double t)
 {
-	if (value < min)
-		value = min;
-	else if (value > max)
-		value = max;
-	return (value);
+	t_hit	hit;
+
+	hit.p = vec_add(ray.origin, vec_scale(ray.direction, t));
+	hit.normal = vec_normalize(vec_sub(hit.p, sphere.center));
+	hit.light_dir = vec_normalize(vec_sub(light.position, hit.p));
+	hit.light_distance = vec_length(vec_sub(light.position, hit.p));
+	return (hit);
 }
 
-t_vec3	compute_lighting(t_ray ray, t_sphere sphere, double t, t_light light,
-		t_ambient ambient, t_vec3 object_color, t_scene *scene)
+static t_vec3	apply_color(t_vec3 obj_color, t_vec3 ambient_term)
 {
-	t_vec3	p;
-	t_vec3	normal;
-	t_vec3	light_dir;
+	t_vec3	color;
+
+	color.x = clamp(((obj_color.x * ambient_term.x) / 255), 0, 255);
+	color.y = clamp(((obj_color.y * ambient_term.y) / 255), 0, 255);
+	color.z = clamp(((obj_color.z * ambient_term.z) / 255), 0, 255);
+	return (color);
+}
+
+t_vec3	compute_lighting(t_ray ray, t_object *obj, double t, t_scene *scene)
+{
+	t_hit	hit;
 	t_vec3	ambient_term;
-	t_vec3	diffuse_term;
-	t_vec3	light_total;
-	t_vec3	final_color;
 	double	diffuse;
-	double	light_distance;
 
-	p = vec_add(ray.origin, vec_scale(ray.direction, t));
-	normal = vec_normalize(vec_sub(p, sphere.center));
-	light_dir = vec_normalize(vec_sub(light.position, p));
-	light_distance = vec_length(vec_sub(light.position, p));
-
-	if (is_in_shadow(vec_add(p, vec_scale(normal, 1e-4)), light_dir, light_distance, scene))
-	{
-		ambient_term = vec_scale(ambient.color, ambient.ratio);
-		final_color.x = clamp(((object_color.x * ambient_term.x) / 255), 0, 255);
-		final_color.y = clamp(((object_color.y * ambient_term.y) / 255), 0, 255);
-		final_color.z = clamp(((object_color.z * ambient_term.z) / 255), 0, 255);
-		return (final_color);
-	}
-	diffuse = vec_dot(normal, light_dir);
+	hit = compute_hit(ray, obj->sphere, scene->light, t);
+	ambient_term = vec_scale(scene->ambient.color, scene->ambient.ratio);
+	if (is_in_shadow(vec_add(hit.p, vec_scale(hit.normal, 1e-4)),
+			hit.light_dir, hit.light_distance, scene))
+		return (apply_color(obj->sphere.color, ambient_term));
+	diffuse = vec_dot(hit.normal, hit.light_dir);
 	if (diffuse < 0)
 		diffuse = 0;
-	ambient_term = vec_scale(ambient.color, ambient.ratio);
-	diffuse_term = vec_scale(light.colour, (light.brightness * diffuse));
-	light_total = vec_add(ambient_term, diffuse_term);
-	final_color.x = (object_color.x * light_total.x) / 255.0;
-	final_color.y = (object_color.y * light_total.y) / 255.0;
-	final_color.z = (object_color.z * light_total.z) / 255.0;
-	final_color.x = clamp(final_color.x, 0, 255);
-	final_color.y = clamp(final_color.y, 0, 255);
-	final_color.z = clamp(final_color.z, 0, 255);
-	return (final_color);
+	return (apply_color(obj->sphere.color,
+			vec_add(ambient_term, vec_scale(scene->light.colour,
+					scene->light.brightness * diffuse))));
 }
 
 int	color_to_int(t_vec3 color)

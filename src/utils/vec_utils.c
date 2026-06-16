@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vec_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/16 15:00:39 by akaung            #+#    #+#             */
+/*   Updated: 2026/06/16 15:00:50 by akaung           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/mini_RT.h"
 
 t_vec3	vec_normalize(t_vec3 v)
@@ -34,8 +46,17 @@ t_vec3	vec_mult(t_vec3 a, t_vec3 b)
 
 double	vec_length(t_vec3 v)
 {
-	double res;
+	double	res;
 
 	res = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	return (res);
+}
+
+double	clamp(double value, double min, double max)
+{
+	if (value < min)
+		value = min;
+	else if (value > max)
+		value = max;
+	return (value);
 }
