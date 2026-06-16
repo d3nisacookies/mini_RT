@@ -2,7 +2,7 @@
 # define MINI_H
 
 # include "get_next_line.h"
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
@@ -43,6 +43,8 @@ typedef struct s_camera
 	t_vec3			up;
 	double			fov;
 	double			aspect;
+	int				width;
+	int				height;
 }					t_camera;
 
 typedef struct s_light
@@ -68,7 +70,7 @@ typedef enum e_obj_type
 typedef struct s_object
 {
 	t_obj_type		type;
-	t_sphere sphere; /*atar will add more shapes*/
+	t_sphere		sphere; /*atar will add more shapes*/
 	struct s_object	*next;
 }					t_object;
 
@@ -93,8 +95,7 @@ int					close_window(void *param);
 double				vec_length(t_vec3 v);
 t_vec3				vec_normalize(t_vec3 v);
 t_vec3				vec_cross(t_vec3 a, t_vec3 b);
-t_ray				get_camera_ray(t_camera *cam, int px, int py, int width,
-						int height);
+t_ray				get_camera_ray(t_camera *cam, int px, int py);
 void				camera_init(t_camera *cam);
 t_vec3				compute_lighting(t_ray ray, t_sphere sphere, double t, t_light light,
 					t_ambient ambient, t_vec3 object_color, t_scene *scene);

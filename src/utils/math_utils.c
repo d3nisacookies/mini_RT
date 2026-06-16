@@ -1,4 +1,4 @@
-#include "../mini_RT.h"
+#include "../../includes/mini_RT.h"
 
 t_vec3	vec_sub(t_vec3 a, t_vec3 b)
 {

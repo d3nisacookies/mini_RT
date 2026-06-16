@@ -1,4 +1,4 @@
-#include "../mini_RT.h"
+#include "../../includes/mini_RT.h"
 
 t_vec3	vec_normalize(t_vec3 v)
 {
