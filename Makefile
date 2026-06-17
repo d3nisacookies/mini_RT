@@ -25,6 +25,7 @@ SRCS = src/main.c \
        src/parser/parse_sphere.c \
        src/parser/parse_vector.c \
        src/parser/parse_utils.c \
+       src/parser/parse_plane.c \
        src/utils/math_utils.c \
        src/utils/vec_utils.c \
        src/utils/atof.c \

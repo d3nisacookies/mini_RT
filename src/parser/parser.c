@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:18:03 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 16:02:21 by akaung           ###   ########.fr       */
+/*   Updated: 2026/06/16 16:21:21 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ void	free_scene(t_scene *scene)
 		obj = next;
 	}
 	scene->objects = NULL;
-}
-
-void	parse_plane(void)
-{
-	return ;
 }
 
 void	parse_cylinder(void)

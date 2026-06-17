@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 13:01:41 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 13:16:37 by akaung           ###   ########.fr       */
+/*   Updated: 2026/06/16 16:26:34 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,23 @@ void	camera_init(t_camera *cam)
 {
 	t_vec3	world_up;
 
-	world_up.x = 0;
-	world_up.y = 1;
-	world_up.z = 0;
+	if (fabs(cam->direction.y) > 0.999)
+	{
+		world_up.x = 0;
+		world_up.y = 0;
+		world_up.z = 1;
+	}
+	else
+	{
+		world_up.x = 0;
+		world_up.y = 1;
+		world_up.z = 0;
+	}
 	cam->right = vec_normalize(vec_cross(cam->direction, world_up));
 	cam->up = vec_normalize(vec_cross(cam->right, cam->direction));
 	cam->width = WIDTH;
 	cam->height = HEIGHT;
-	cam->aspect = (double) WIDTH / HEIGHT;
+	cam->aspect = (double)WIDTH / HEIGHT;
 }
 
 static t_vec3	get_ray_direction(t_camera *cam, double ndc_x, double ndc_y,

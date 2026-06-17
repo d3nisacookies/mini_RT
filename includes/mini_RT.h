@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 16:07:22 by akaung           ###   ########.fr       */
+/*   Updated: 2026/06/16 16:21:02 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ typedef struct s_app
 	void	*win;
 	t_scene	*scene;
 }	t_app;
-
 
 /*
 ** Vector math
