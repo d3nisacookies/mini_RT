@@ -12,12 +12,12 @@ LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
 
 SRCS = src/main.c \
-       src/render.c \
-       src/scene_init.c \
-       src/hooks.c \
-       src/camera_init.c \
-       src/lighting.c \
-       src/is_in_shadow.c \
+       src/render/render.c \
+       src/init/scene_init.c \
+       src/hooks/hooks.c \
+       src/init/camera_init.c \
+       src/render/lighting.c \
+       src/render/is_in_shadow.c \
        src/parser/parser.c \
        src/parser/parse_ambient.c \
        src/parser/parse_camera.c \

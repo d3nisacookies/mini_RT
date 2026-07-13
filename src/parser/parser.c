@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:18:03 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 16:21:21 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/13 18:59:15 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	parse_line(char *line, t_scene *scene)
 	else if (!ft_strncmp(line, "L", 1))
 		parse_light(line, scene);
 	else if (!ft_strncmp(line, "sp", 2))
-		parse_sphere(line, scene);
+		parse_sphere(line, scene); // init sphere
 	else if (!ft_strncmp(line, "pl", 2))
-		parse_plane();
+		parse_plane(); // init plane
 	else if (!ft_strncmp(line, "cy", 2))
-		parse_cylinder();
+		parse_cylinder(); // init cylinder
 }
 
 void	exit_error(char *msg, t_scene *scene)

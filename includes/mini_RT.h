@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_RT.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 16:21:02 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/13 18:16:58 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_object
 {
 	t_obj_type		type;
 	t_sphere		sphere;
+	// t_plane			plane;
 	struct s_object	*next;
 }					t_object;
 
