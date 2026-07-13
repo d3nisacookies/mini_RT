@@ -31,6 +31,7 @@ SRCS = src/main.c \
        src/utils/atof.c \
        gnl/get_next_line.c \
        gnl/get_next_line_utils.c
+HEADER = includes/mini_RT.h
 
 OBJS = $(SRCS:.c=.o)
 
@@ -45,7 +46,7 @@ $(LIBFT):
 $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT)
 	$(CC) $(CFLAGS) -no-pie $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
 
-%.o: %.c
+%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -Iincludes -I$(MLX_DIR) -I$(LIBFT_DIR) -Ignl -c $< -o $@
 
 clean:
