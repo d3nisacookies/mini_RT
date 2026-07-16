@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/13 18:16:58 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/16 22:47:41 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,29 @@ typedef struct s_ray
 /*
 ** Scene object types
 */
+
 typedef struct s_sphere
 {
 	t_vec3			center;
 	t_vec3			color;
 	double			radius;
 }					t_sphere;
+
+typedef struct s_plane
+{
+	t_vec3			point;
+	t_vec3			normal;
+	t_vec3			color;
+}				t_plane;
+
+typedef struct s_cylinder
+{
+	t_vec3			center;
+	t_vec3			axis;
+	double			radius;
+	double			height;
+	t_vec3			color;
+}				t_cylinder;
 
 typedef enum e_obj_type
 {
@@ -72,7 +89,8 @@ typedef struct s_object
 {
 	t_obj_type		type;
 	t_sphere		sphere;
-	// t_plane			plane;
+	t_plane			plane;
+	t_cylinder		cylinder;
 	struct s_object	*next;
 }					t_object;
 
@@ -155,11 +173,15 @@ t_ray				get_camera_ray(t_camera *cam, int px, int py);
 */
 void				render(void *mlx, void *win, t_scene *scene);
 t_vec3				trace_ray(t_ray ray, t_scene *scene);
+t_object			*find_closest_object(t_ray ray, t_scene *scene,
+						double *closest_t);
 t_vec3				compute_lighting(t_ray ray, t_object *obj,
 						double t, t_scene *scene);
 int					is_in_shadow(t_vec3 p, t_vec3 light_dir,
 						double light_distance, t_scene *scene);
 double				intersect_sphere(t_ray ray, t_sphere sphere);
+double				intersect_plane(t_ray ray, t_plane plane);
+double				intersect_cylinder(t_ray ray, t_cylinder cylinder);
 int					color_to_int(t_vec3 color);
 double				clamp(double value, double min, double max);
 
@@ -172,10 +194,11 @@ void				parse_ambient(char *line, t_scene *scene);
 void				parse_camera(char *line, t_scene *scene);
 void				parse_light(char *line, t_scene *scene);
 void				parse_sphere(char *line, t_scene *scene);
-void				parse_plane(void);
-void				parse_cylinder(void);
+void				parse_plane(char *line, t_scene *scene);
+void				parse_cylinder(char *line, t_scene *scene);
 t_vec3				parse_vector(char *str);
 void				free_tokens(char **tokens);
+void				free_and_exit(char **tokens, t_scene *scene, char *msg);
 
 /*
 ** Utils

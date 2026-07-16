@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:18:03 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/13 18:59:15 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/16 22:43:43 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	parse_line(char *line, t_scene *scene)
 	else if (!ft_strncmp(line, "L", 1))
 		parse_light(line, scene);
 	else if (!ft_strncmp(line, "sp", 2))
-		parse_sphere(line, scene); // init sphere
+		parse_sphere(line, scene);
 	else if (!ft_strncmp(line, "pl", 2))
-		parse_plane(); // init plane
+		parse_plane(line, scene);
 	else if (!ft_strncmp(line, "cy", 2))
-		parse_cylinder(); // init cylinder
+		parse_cylinder(line, scene);
 }
 
 void	exit_error(char *msg, t_scene *scene)
@@ -69,9 +69,4 @@ void	free_scene(t_scene *scene)
 		obj = next;
 	}
 	scene->objects = NULL;
-}
-
-void	parse_cylinder(void)
-{
-	return ;
 }

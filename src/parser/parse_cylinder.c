@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_sphere.c                                     :+:      :+:    :+:   */
+/*   parse_cylinder.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/16 15:02:49 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/16 22:43:36 by tswe-zin         ###   ########.fr       */
+/*   Created: 2026/07/16 19:46:17 by tswe-zin          #+#    #+#             */
+/*   Updated: 2026/07/16 22:43:56 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_RT.h"
+#include "../../includes/mini_RT.h"
 
-void	parse_sphere(char *line, t_scene *scene)
+void	parse_cylinder(char *line, t_scene *scene)
 {
 	char		**tokens;
 	t_object	*obj;
 
 	tokens = ft_split(line, ' ');
-	if (!tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
-		free_and_exit(tokens, scene, "Invalid sphere");
+	if (!tokens[1] || !tokens[2] || !tokens[3] || !tokens[4]
+		|| !tokens[5] || tokens[6])
+		free_and_exit(tokens, scene, "Invalid cylinder");
 	obj = malloc(sizeof(t_object));
 	if (!obj)
 		free_and_exit(tokens, scene, "Malloc failed");
-	obj->type = SPHERE;
-	obj->sphere.center = parse_vector(tokens[1]);
-	obj->sphere.radius = ft_atof(tokens[2]) / 2.0;
-	if (obj->sphere.radius <= 0)
-		free_and_exit(tokens, scene, "Invalid sphere radius");
-	obj->sphere.color = parse_vector(tokens[3]);
+	obj->type = CYLINDER;
+	obj->cylinder.center = parse_vector(tokens[1]);
+	obj->cylinder.axis = vec_normalize(parse_vector(tokens[2]));
+	obj->cylinder.radius = ft_atof(tokens[3]) / 2.0;
+	obj->cylinder.height = ft_atof(tokens[4]);
+	obj->cylinder.color = parse_vector(tokens[5]);
 	obj->next = scene->objects;
 	scene->objects = obj;
 	free_tokens(tokens);
-}
-
-void	free_and_exit(char **tokens, t_scene *scene, char *msg)
-{
-	free_tokens(tokens);
-	exit_error(msg, scene);
 }
