@@ -54,6 +54,29 @@ double	intersect_plane(t_ray ray, t_plane plane)
 	return (t);
 }
 
-double	intersect_cylinder(t_ray ray, t_sphere sphere)
+double	intersect_cylinder(t_ray ray, t_cylinder cyl)
 {
+	t_vec3	top;
+	t_vec3	bottom;
+	double	body;
+	double	cap1;
+	double	cap2;
+	double	t;
+
+	top = vec_add(cyl.center,
+			vec_scale(cyl.axis, cyl.height / 2.0));
+	bottom = vec_sub(cyl.center,
+			vec_scale(cyl.axis, cyl.height / 2.0));
+	body = intersect_cylinder_body(ray, cyl);
+	cap1 = intersect_disk(ray,
+			top,
+			cyl.axis,
+			cyl.radius);
+	cap2 = intersect_disk(ray,
+			bottom,
+			cyl.axis,
+			cyl.radius);
+	t = min_positive(body, cap1);
+	t = min_positive(t, cap2);
+	return (t);
 }

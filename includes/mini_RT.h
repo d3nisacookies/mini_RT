@@ -182,6 +182,10 @@ int					is_in_shadow(t_vec3 p, t_vec3 light_dir,
 double				intersect_sphere(t_ray ray, t_sphere sphere);
 double				intersect_plane(t_ray ray, t_plane plane);
 double				intersect_cylinder(t_ray ray, t_cylinder cylinder);
+double				intersect_cylinder_body(t_ray ray, t_cylinder cyl);
+double				intersect_disk(t_ray ray, t_vec3 center,
+					t_vec3 normal, double radius);
+double				min_positive(double a, double b);
 int					color_to_int(t_vec3 color);
 double				clamp(double value, double min, double max);
 
