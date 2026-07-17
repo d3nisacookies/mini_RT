@@ -36,10 +36,24 @@ double	intersect_sphere(t_ray ray, t_sphere sphere)
 	return (t);
 }
 
-double	intersect_sphere(t_ray ray, t_sphere sphere)
+double	intersect_plane(t_ray ray, t_plane plane)
 {
+	double	t;
+	t_vec3	diff;
+	double	numerator;
+	double	denominator;
+
+	diff = vec_sub(plane.point, ray.origin);
+	numerator = vec_dot(diff, plane.normal);
+	denominator = vec_dot(ray.direction, plane.normal);
+	if (fabs(denominator) < 1e-6)
+		return (-1);
+	t = numerator / denominator;
+	if (t <= 1e-6)
+		return (-1);
+	return (t);
 }
 
-double	intersect_sphere(t_ray ray, t_sphere sphere)
+double	intersect_cylinder(t_ray ray, t_sphere sphere)
 {
 }
