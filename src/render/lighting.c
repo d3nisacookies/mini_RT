@@ -3,23 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:22:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 14:54:08 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/17 23:02:58 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_RT.h"
 
-static t_hit	compute_hit(t_ray ray, t_sphere sphere, t_light light, double t)
+t_vec3	cylinder_normal(t_vec3 hit, t_cylinder cyl)
+{
+	t_vec3	top;
+	t_vec3	bottom;
+	t_vec3	v;
+	double	proj;
+
+	top = vec_add(cyl.center,
+					vec_scale(cyl.axis, cyl.height / 2.0));
+	bottom = vec_sub(cyl.center,
+						vec_scale(cyl.axis, cyl.height / 2.0));
+	if (fabs(vec_dot(vec_sub(hit, top), cyl.axis)) < 1e-4)
+		return (cyl.axis);
+	if (fabs(vec_dot(vec_sub(hit, bottom), cyl.axis)) < 1e-4)
+		return (vec_scale(cyl.axis, -1));
+	v = vec_sub(hit, cyl.center);
+	proj = vec_dot(v, cyl.axis);
+	return (vec_normalize(
+		vec_sub(v, vec_scale(cyl.axis, proj))));
+}
+
+t_hit	compute_hit(t_ray ray, t_object *obj, t_light light, double t)
 {
 	t_hit	hit;
 
 	hit.p = vec_add(ray.origin, vec_scale(ray.direction, t));
-	hit.normal = vec_normalize(vec_sub(hit.p, sphere.center));
-	hit.light_dir = vec_normalize(vec_sub(light.position, hit.p));
-	hit.light_distance = vec_length(vec_sub(light.position, hit.p));
+	if (obj->type == SPHERE)
+	{
+		hit.normal = vec_normalize(
+			vec_sub(hit.p, obj->sphere.center));
+		hit.color = obj->sphere.color;
+	}
+	else if (obj->type == PLANE)
+	{
+		hit.normal = obj->plane.normal;
+		hit.color = obj->plane.color;
+	}
+	else if (obj->type == CYLINDER)
+	{
+		hit.normal = cylinder_normal(hit.p, obj->cylinder);
+		hit.color = obj->cylinder.color;
+	}
+	hit.light_dir = vec_normalize(
+		vec_sub(light.position, hit.p));
+	hit.light_distance =
+		vec_length(vec_sub(light.position, hit.p));
 	return (hit);
 }
 
@@ -37,19 +75,37 @@ t_vec3	compute_lighting(t_ray ray, t_object *obj, double t, t_scene *scene)
 {
 	t_hit	hit;
 	t_vec3	ambient_term;
+	t_vec3	color;
+	t_vec3	light_term;
 	double	diffuse;
 
-	hit = compute_hit(ray, obj->sphere, scene->light, t);
-	ambient_term = vec_scale(scene->ambient.color, scene->ambient.ratio);
-	if (is_in_shadow(vec_add(hit.p, vec_scale(hit.normal, 1e-4)),
-			hit.light_dir, hit.light_distance, scene))
-		return (apply_color(obj->sphere.color, ambient_term));
+	hit = compute_hit(ray, obj, scene->light, t);
+	if (obj->type == SPHERE)
+	{
+		color = obj->sphere.color;
+		// printf("Lighting color = (%f, %f, %f)\n",
+		// 	color.x, color.y, color.z);
+	}
+	else if (obj->type == PLANE)
+		color = obj->plane.color;
+	else
+		color = obj->cylinder.color;
+	ambient_term = vec_scale(scene->ambient.color,
+								scene->ambient.ratio);
+	if (is_in_shadow(
+			vec_add(hit.p, vec_scale(hit.normal, 1e-4)),
+			hit.light_dir,
+			hit.light_distance,
+			scene))
+		return (apply_color(color, ambient_term));
 	diffuse = vec_dot(hit.normal, hit.light_dir);
 	if (diffuse < 0)
 		diffuse = 0;
-	return (apply_color(obj->sphere.color,
-			vec_add(ambient_term, vec_scale(scene->light.colour,
-					scene->light.brightness * diffuse))));
+	light_term = vec_add(
+		ambient_term,
+		vec_scale(scene->light.colour,
+					scene->light.brightness * diffuse));
+	return (apply_color(color, light_term));
 }
 
 int	color_to_int(t_vec3 color)

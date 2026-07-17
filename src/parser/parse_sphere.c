@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 15:02:49 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/16 22:43:36 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/17 22:50:14 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	parse_sphere(char *line, t_scene *scene)
 	if (obj->sphere.radius <= 0)
 		free_and_exit(tokens, scene, "Invalid sphere radius");
 	obj->sphere.color = parse_vector(tokens[3]);
+	printf("Parsed sphere color = (%f, %f, %f)\n",
+			obj->sphere.color.x,
+			obj->sphere.color.y,
+			obj->sphere.color.z);
 	obj->next = scene->objects;
 	scene->objects = obj;
 	free_tokens(tokens);

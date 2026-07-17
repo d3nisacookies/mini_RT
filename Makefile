@@ -1,7 +1,7 @@
 NAME = miniRT
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+# CFLAGS = -Wall -Wextra -Werror -g
 
 MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a
@@ -18,6 +18,8 @@ SRCS = src/main.c \
        src/init/camera_init.c \
        src/render/lighting.c \
        src/render/is_in_shadow.c \
+       src/render/intersect.c \
+       src/render/intersect2.c \
        src/parser/parser.c \
        src/parser/parse_ambient.c \
        src/parser/parse_camera.c \
@@ -26,6 +28,7 @@ SRCS = src/main.c \
        src/parser/parse_vector.c \
        src/parser/parse_utils.c \
        src/parser/parse_plane.c \
+       src/parser/parse_cylinder.c \
        src/utils/math_utils.c \
        src/utils/vec_utils.c \
        src/utils/atof.c \

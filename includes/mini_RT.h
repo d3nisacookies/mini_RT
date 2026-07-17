@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/16 22:47:41 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/17 22:31:33 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_hit
 	t_vec3			normal;
 	t_vec3			light_dir;
 	double			light_distance;
+	t_vec3			color;
 }					t_hit;
 
 typedef struct s_app
