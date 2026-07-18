@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:57:38 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/16 19:42:05 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/18 21:51:02 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,16 @@ t_vec3	vec_add(t_vec3 a, t_vec3 b)
 	result.y = a.y + b.y;
 	result.z = a.z + b.z;
 	return (result);
+}
+
+int	color_to_int(t_vec3 color)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (int)color.x;
+	g = (int)color.y;
+	b = (int)color.z;
+	return ((r << 16) | (g << 8) | b);
 }

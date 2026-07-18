@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intersect.c                                        :+:      :+:    :+:   */
+/*   intersect2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 19:41:58 by tswe-zin          #+#    #+#             */
-/*   Updated: 2026/07/16 22:45:13 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/18 22:00:10 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,51 +23,51 @@ double	min_positive(double a, double b)
 	return (b);
 }
 
-double	intersect_cylinder_body(t_ray ray, t_cylinder cyl)
+double	check_cylinder_hit(t_ray ray, t_cylinder cyl,
+			t_vec3 oc, double t)
 {
-	t_vec3	oc;
-	t_vec3	dp;
-	t_vec3	ocp;
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-	double	t1;
-	double	t2;
 	double	m;
 
-	oc = vec_sub(ray.origin, cyl.center);
-	dp = vec_sub(ray.direction,
-			vec_scale(cyl.axis,
-			vec_dot(ray.direction, cyl.axis)));
-	ocp = vec_sub(oc,
-			vec_scale(cyl.axis,
-			vec_dot(oc, cyl.axis)));
-	a = vec_dot(dp, dp);
-	b = 2.0 * vec_dot(dp, ocp);
-	c = vec_dot(ocp, ocp) - cyl.radius * cyl.radius;
-	d = b * b - 4 * a * c;
-	if (d < 0)
+	if (t <= 1e-6)
 		return (-1);
-	t1 = (-b - sqrt(d)) / (2 * a);
-	t2 = (-b + sqrt(d)) / (2 * a);
-	if (t1 > 1e-6)
-	{
-		m = vec_dot(
-			vec_add(oc, vec_scale(ray.direction, t1)),
+	m = vec_dot(vec_add(oc, vec_scale(ray.direction, t)),
 			cyl.axis);
-		if (fabs(m) <= cyl.height / 2.0)
-			return (t1);
-	}
-	if (t2 > 1e-6)
-	{
-		m = vec_dot(
-			vec_add(oc, vec_scale(ray.direction, t2)),
-			cyl.axis);
-		if (fabs(m) <= cyl.height / 2.0)
-			return (t2);
-	}
+	if (fabs(m) <= cyl.height / 2.0)
+		return (t);
 	return (-1);
+}
+
+void	init_cylinder_quad(t_ray ray, t_cylinder cyl,
+			t_cyl_quad *q)
+{
+	q->oc = vec_sub(ray.origin, cyl.center);
+	q->dp = vec_sub(ray.direction,
+			vec_scale(cyl.axis,
+				vec_dot(ray.direction, cyl.axis)));
+	q->ocp = vec_sub(q->oc,
+			vec_scale(cyl.axis,
+				vec_dot(q->oc, cyl.axis)));
+	q->a = vec_dot(q->dp, q->dp);
+	q->b = 2.0 * vec_dot(q->dp, q->ocp);
+	q->c = vec_dot(q->ocp, q->ocp)
+		- cyl.radius * cyl.radius;
+	q->d = q->b * q->b - 4 * q->a * q->c;
+}
+
+double	intersect_cylinder_body(t_ray ray, t_cylinder cyl)
+{
+	t_cyl_quad	q;
+	double		t;
+
+	init_cylinder_quad(ray, cyl, &q);
+	if (fabs(q.a) < 1e-6 || q.d < 0)
+		return (-1);
+	t = check_cylinder_hit(ray, cyl, q.oc,
+			(-q.b - sqrt(q.d)) / (2 * q.a));
+	if (t > 0)
+		return (t);
+	return (check_cylinder_hit(ray, cyl, q.oc,
+			(-q.b + sqrt(q.d)) / (2 * q.a)));
 }
 
 double	intersect_disk(t_ray ray, t_vec3 center,

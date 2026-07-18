@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/17 22:31:33 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/18 22:00:49 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,30 @@ typedef struct s_object
 	t_cylinder		cylinder;
 	struct s_object	*next;
 }					t_object;
+
+/*
+** cylinder
+*/
+
+typedef struct s_cyl_hit
+{
+	t_vec3			top;
+	t_vec3			bottom;
+	double			body;
+	double			cap1;
+	double			cap2;
+}				t_cyl_hit;
+
+typedef struct s_cyl_quad
+{
+	t_vec3	oc;
+	t_vec3	dp;
+	t_vec3	ocp;
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+}	t_cyl_quad;
 
 /*
 ** Scene elements
@@ -185,7 +209,7 @@ double				intersect_plane(t_ray ray, t_plane plane);
 double				intersect_cylinder(t_ray ray, t_cylinder cylinder);
 double				intersect_cylinder_body(t_ray ray, t_cylinder cyl);
 double				intersect_disk(t_ray ray, t_vec3 center,
-					t_vec3 normal, double radius);
+						t_vec3 normal, double radius);
 double				min_positive(double a, double b);
 int					color_to_int(t_vec3 color);
 double				clamp(double value, double min, double max);

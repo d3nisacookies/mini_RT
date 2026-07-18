@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 19:41:58 by tswe-zin          #+#    #+#             */
-/*   Updated: 2026/07/17 22:39:42 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/18 21:58:59 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ double	intersect_plane(t_ray ray, t_plane plane)
 	diff = vec_sub(plane.point, ray.origin);
 	numerator = vec_dot(diff, plane.normal);
 	denominator = vec_dot(ray.direction, plane.normal);
-	printf("denom = %f\n", denominator);
 	if (fabs(denominator) < 1e-6)
 		return (-1);
 	t = numerator / denominator;
-	printf("t = %f\n", t);
 	if (t <= 1e-6)
 		return (-1);
 	return (t);
@@ -58,27 +56,23 @@ double	intersect_plane(t_ray ray, t_plane plane)
 
 double	intersect_cylinder(t_ray ray, t_cylinder cyl)
 {
-	t_vec3	top;
-	t_vec3	bottom;
-	double	body;
-	double	cap1;
-	double	cap2;
-	double	t;
+	double		t;
+	t_cyl_hit	h;
 
-	top = vec_add(cyl.center,
+	h.top = vec_add(cyl.center,
 			vec_scale(cyl.axis, cyl.height / 2.0));
-	bottom = vec_sub(cyl.center,
+	h.bottom = vec_sub(cyl.center,
 			vec_scale(cyl.axis, cyl.height / 2.0));
-	body = intersect_cylinder_body(ray, cyl);
-	cap1 = intersect_disk(ray,
-			top,
+	h.body = intersect_cylinder_body(ray, cyl);
+	h.cap1 = intersect_disk(ray,
+			h.top,
 			cyl.axis,
 			cyl.radius);
-	cap2 = intersect_disk(ray,
-			bottom,
+	h.cap2 = intersect_disk(ray,
+			h.bottom,
 			cyl.axis,
 			cyl.radius);
-	t = min_positive(body, cap1);
-	t = min_positive(t, cap2);
+	t = min_positive(h.body, h.cap1);
+	t = min_positive(t, h.cap2);
 	return (t);
 }
