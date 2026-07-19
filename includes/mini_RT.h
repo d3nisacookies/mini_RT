@@ -155,6 +155,7 @@ typedef struct s_scene
 	int				camera_set;
 	int				light_set;
 	int				ambient_set;
+	char			*line;
 }					t_scene;
 
 /*

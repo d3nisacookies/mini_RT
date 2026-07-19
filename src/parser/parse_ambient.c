@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 15:01:39 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 15:01:39 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:47:23 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,15 @@
 void	parse_ambient(char *line, t_scene *scene)
 {
 	char	**tokens;
-
-	if (scene->ambient_set)
-		exit_error("multiple ambients", scene);
+	
 	tokens = ft_split(line, ' ');
+	if (scene->ambient_set)
+		free_and_exit(tokens, scene, "Too many ambients.");	
 	if (!tokens[1] || !tokens[2] || tokens[3])
-		exit_error("invalid ambient params", scene);
+		free_and_exit(tokens, scene, "Invalid ambient params.");
 	scene->ambient.ratio = ft_atof(tokens[1]);
 	if (scene->ambient.ratio < 0 || scene->ambient.ratio > 1)
-	{
-		free_tokens(tokens);
-		exit_error("invalid ratio", scene);
-	}
+		free_and_exit(tokens, scene, "Invalid ratio.");
 	scene->ambient.color = parse_vector(tokens[2]);
 	scene->ambient_set = 1;
 	free_tokens(tokens);

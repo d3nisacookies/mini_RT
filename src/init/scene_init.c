@@ -18,4 +18,5 @@ void	scene_init(t_scene *scene)
 	scene->ambient_set = 0;
 	scene->light_set = 0;
 	scene->objects = NULL;
+	scene->line = NULL;
 }

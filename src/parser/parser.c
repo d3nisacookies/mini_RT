@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
+/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:18:03 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/16 22:43:43 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/19 23:48:30 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ void	parse_scene(char *filename, t_scene *scene)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		scene->line = line;
 		parse_line(line, scene);
 		free(line);
+		scene->line = NULL;
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 }
 
@@ -69,4 +72,9 @@ void	free_scene(t_scene *scene)
 		obj = next;
 	}
 	scene->objects = NULL;
+	if (scene->line)
+	{
+		free(scene->line);
+		scene->line = NULL;
+	}
 }
