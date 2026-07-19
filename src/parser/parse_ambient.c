@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 15:01:39 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/19 23:47:23 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/20 00:04:31 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	parse_ambient(char *line, t_scene *scene)
 {
 	char	**tokens;
-	
+
 	tokens = ft_split(line, ' ');
 	if (scene->ambient_set)
-		free_and_exit(tokens, scene, "Too many ambients.");	
+		free_and_exit(tokens, scene, "Too many ambients.");
 	if (!tokens[1] || !tokens[2] || tokens[3])
 		free_and_exit(tokens, scene, "Invalid ambient params.");
 	scene->ambient.ratio = ft_atof(tokens[1]);

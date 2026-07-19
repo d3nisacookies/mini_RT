@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 11:59:41 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/19 23:04:27 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/20 00:05:45 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	setup_mlx(t_app	*app)
 	app->img.img = mlx_new_image(app->mlx, WIDTH, HEIGHT);
 	if (!app->img.img)
 		exit_error("image failed", app->scene);
-	app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp, &app->img.line_len, &app->img.endian);
+	app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp,
+			&app->img.line_len, &app->img.endian);
 }
 
 int	main(int argc, char **argv)

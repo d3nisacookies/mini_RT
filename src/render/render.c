@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:39:45 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/19 23:08:03 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/20 00:04:48 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	put_pixel_img(t_img *img, int x, int y, int color)
 {
-	char *pixel;
-	
+	char	*pixel;
+
 	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)pixel = color;
 }

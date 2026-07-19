@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/19 23:08:30 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/20 00:06:59 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ typedef struct s_hit
 	t_vec3			color;
 }					t_hit;
 
-
 typedef struct s_img
 {
 	void	*img;
@@ -179,7 +178,6 @@ typedef struct s_img
 	int		line_len;
 	int		endian;
 }	t_img;
-
 
 typedef struct s_app
 {
