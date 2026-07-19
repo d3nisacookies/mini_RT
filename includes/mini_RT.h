@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_RT.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
+/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/18 22:00:49 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/19 23:08:30 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,11 +169,23 @@ typedef struct s_hit
 	t_vec3			color;
 }					t_hit;
 
+
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
+
 typedef struct s_app
 {
 	void	*mlx;
 	void	*win;
 	t_scene	*scene;
+	t_img	img;
 }	t_app;
 
 /*
@@ -196,7 +208,7 @@ t_ray				get_camera_ray(t_camera *cam, int px, int py);
 /*
 ** Rendering
 */
-void				render(void *mlx, void *win, t_scene *scene);
+void				render(t_app *app);
 t_vec3				trace_ray(t_ray ray, t_scene *scene);
 t_object			*find_closest_object(t_ray ray, t_scene *scene,
 						double *closest_t);
@@ -234,7 +246,7 @@ void				free_and_exit(char **tokens, t_scene *scene, char *msg);
 */
 void				scene_init(t_scene *scene);
 void				exit_error(char *msg, t_scene *scene);
-void				setup_mlx(void **mlx, void **win, t_scene *scene);
+void				setup_mlx(t_app *app);
 void				free_scene(t_scene *scene);
 
 /*

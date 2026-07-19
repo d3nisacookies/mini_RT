@@ -3,16 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
+/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:39:45 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/18 21:46:14 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/19 23:08:03 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_RT.h"
 
-void	render(void *mlx, void *win, t_scene *scene)
+static void	put_pixel_img(t_img *img, int x, int y, int color)
+{
+	char *pixel;
+	
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(unsigned int *)pixel = color;
+}
+
+void	render(t_app *app)
 {
 	int		x;
 	int		y;
@@ -25,13 +33,14 @@ void	render(void *mlx, void *win, t_scene *scene)
 		x = 0;
 		while (x < WIDTH)
 		{
-			ray = get_camera_ray(&scene->camera, x, y);
-			color = trace_ray(ray, scene);
-			mlx_pixel_put(mlx, win, x, y, color_to_int(color));
+			ray = get_camera_ray(&app->scene->camera, x, y);
+			color = trace_ray(ray, app->scene);
+			put_pixel_img(&app->img, x, y, color_to_int(color));
 			x++;
 		}
 		y++;
 	}
+	mlx_put_image_to_window(app->mlx, app->win, app->img.img, 0, 0);
 }
 
 static t_vec3	shade_closest(t_ray ray, t_object *obj

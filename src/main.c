@@ -6,7 +6,7 @@
 /*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 11:59:41 by akaung            #+#    #+#             */
-/*   Updated: 2026/06/16 16:10:03 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/19 23:04:27 by akaung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,35 @@ static void	validate_args(int ac, char **av)
 		exit_error("file must have .rt extenstion.", NULL);
 }
 
-void	setup_mlx(void **mlx, void **win, t_scene *scene)
+void	setup_mlx(t_app	*app)
 {
-	*mlx = mlx_init();
-	if (!*mlx)
-		exit_error("mlx init failed", scene);
-	*win = mlx_new_window(*mlx, WIDTH, HEIGHT, "mini_RT");
-	if (!*win)
-		exit_error("mlx new window failed", scene);
+	app->mlx = mlx_init();
+	if (!app->mlx)
+		exit_error("mlx init failed", app->scene);
+	app->win = mlx_new_window(app->mlx, WIDTH, HEIGHT, "mini_RT");
+	if (!app->win)
+		exit_error("mlx new window failed", app->scene);
+	app->img.img = mlx_new_image(app->mlx, WIDTH, HEIGHT);
+	if (!app->img.img)
+		exit_error("image failed", app->scene);
+	app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp, &app->img.line_len, &app->img.endian);
 }
 
 int	main(int argc, char **argv)
 {
-	void		*mlx;
-	void		*win;
-	t_scene		scene;
 	t_app		app;
+	t_scene		scene;
 
 	validate_args(argc, argv);
 	scene_init(&scene);
 	parse_scene(argv[1], &scene);
 	if (!scene.camera_set || !scene.light_set || !scene.ambient_set)
 		exit_error("missing required scene element", &scene);
-	setup_mlx(&mlx, &win, &scene);
-	app.mlx = mlx;
-	app.win = win;
 	app.scene = &scene;
-	mlx_hook(win, 17, 0, close_window, &app);
-	mlx_key_hook(win, key_handler, &app);
-	render(mlx, win, &scene);
-	mlx_loop(mlx);
+	setup_mlx(&app);
+	mlx_hook(app.win, 17, 0, close_window, &app);
+	mlx_key_hook(app.win, key_handler, &app);
+	render(&app);
+	mlx_loop(app.mlx);
 	return (0);
 }
