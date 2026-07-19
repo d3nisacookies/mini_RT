@@ -12,6 +12,15 @@
 
 #include "mini_RT.h"
 
+static void	strip_newline(char *line)
+{
+	int	len;
+
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+}
+
 void	parse_scene(char *filename, t_scene *scene)
 {
 	int		fd;
@@ -23,6 +32,7 @@ void	parse_scene(char *filename, t_scene *scene)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		strip_newline(line);
 		scene->line = line;
 		parse_line(line, scene);
 		free(line);

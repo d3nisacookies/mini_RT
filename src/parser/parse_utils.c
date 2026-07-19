@@ -24,3 +24,27 @@ void	free_tokens(char **tokens)
 	}
 	free(tokens);
 }
+
+int	check_token(char *token)
+{
+	int	i;
+	int	dot;
+
+	if (!token || !token[0])
+		return (0);
+	i = 0;
+	dot = 0;
+	if (token[i] == '-')
+		i++;
+	if (!token[i])
+		return (0);
+	while (token[i])
+	{
+		if (token[i] == '.' && !dot)
+			dot = 1;
+		else if (token[i] < '0' || token[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}

@@ -23,12 +23,14 @@ void	parse_sphere(char *line, t_scene *scene)
 	obj = malloc(sizeof(t_object));
 	if (!obj)
 		free_and_exit(tokens, scene, "Malloc failed");
+	if (!check_token(tokens[2]))
+		free_and_exit(tokens, scene, "Invalid sphere radius");
 	obj->type = SPHERE;
-	obj->sphere.center = parse_vector(tokens[1]);
+	obj->sphere.center = parse_vector(tokens[1], tokens, scene);
 	obj->sphere.radius = ft_atof(tokens[2]) / 2.0;
 	if (obj->sphere.radius <= 0)
 		free_and_exit(tokens, scene, "Invalid sphere radius");
-	obj->sphere.color = parse_vector(tokens[3]);
+	obj->sphere.color = parse_vector(tokens[3], tokens, scene);
 	obj->next = scene->objects;
 	scene->objects = obj;
 	free_tokens(tokens);

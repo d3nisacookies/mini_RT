@@ -21,8 +21,10 @@ void	parse_camera(char *line, t_scene *scene)
 		free_and_exit(tokens, scene, "Multiple cameras.");
 	if (!tokens[1] || !tokens[2] || !tokens[3] || tokens[4])
 		free_and_exit(tokens, scene, "Invalid camera params");
-	scene->camera.position = parse_vector(tokens[1]);
-	scene->camera.direction = parse_vector(tokens[2]);
+	if (!check_token(tokens[3]))
+		free_and_exit(tokens, scene, "Invalid FOV");
+	scene->camera.position = parse_vector(tokens[1], tokens, scene);
+	scene->camera.direction = parse_vector(tokens[2], tokens, scene);
 	scene->camera.fov = ft_atof(tokens[3]);
 	if (scene->camera.fov < 0 || scene->camera.fov > 180)
 		free_and_exit(tokens, scene, "Invalid FOV");

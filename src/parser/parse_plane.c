@@ -24,9 +24,9 @@ void	parse_plane(char *line, t_scene *scene)
 	if (!obj)
 		free_and_exit(tokens, scene, "Malloc failed");
 	obj->type = PLANE;
-	obj->plane.point = parse_vector(tokens[1]);
-	obj->plane.normal = vec_normalize(parse_vector(tokens[2]));
-	obj->plane.color = parse_vector(tokens[3]);
+	obj->plane.point = parse_vector(tokens[1], tokens, scene);
+	obj->plane.normal = vec_normalize(parse_vector(tokens[2], tokens, scene));
+	obj->plane.color = parse_vector(tokens[3], tokens, scene);
 	obj->next = scene->objects;
 	scene->objects = obj;
 	free_tokens(tokens);

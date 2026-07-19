@@ -236,9 +236,10 @@ void				parse_light(char *line, t_scene *scene);
 void				parse_sphere(char *line, t_scene *scene);
 void				parse_plane(char *line, t_scene *scene);
 void				parse_cylinder(char *line, t_scene *scene);
-t_vec3				parse_vector(char *str);
+t_vec3				parse_vector(char *str, char **tokens, t_scene *scene);
 void				free_tokens(char **tokens);
 void				free_and_exit(char **tokens, t_scene *scene, char *msg);
+int					check_token(char *token);
 
 /*
 ** Utils
