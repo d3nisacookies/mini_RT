@@ -204,19 +204,18 @@ The renderer is based on the ray tracing algorithm:
 
 - 42 miniRT subject
 - MiniLibX documentation
-- The Ray Tracer Challenge — Jamis Buck
 - Scratchapixel — Introduction to Ray Tracing
-- Ray Tracing in One Weekend — Peter Shirley
-- OpenGL Mathematics (GLM) documentation (for mathematical reference)
+
 
 ### Tutorials & References
 
 - https://raytracing.github.io/
-- https://www.scratchapixel.com/
+- https://glm.g-truc.net/glm.pdf
+- https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-to-ray-tracing//how-does-it-work.html
 - https://harm-smits.github.io/42docs/libs/minilibx
-- https://en.cppreference.com/
-- https://man7.org/linux/man-pages/
 - https://youtu.be/H5TB2l7zq6s?si=N66r63aTw2FF42-J
+- https://youtu.be/mTOllvinv-U?si=z3bo0A0IQJYP7E3y
+- https://youtu.be/tUh6gCx08LI?si=ejVyOds8t28R0szE
 
 ### AI Usage
 
