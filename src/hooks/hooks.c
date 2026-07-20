@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:22:56 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/20 09:49:30 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/20 09:58:07 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	mlx_error(char *msg, t_app *app)
 {
 	destroy_mlx(app);
-
 	if (app->scene)
 		free_scene(app->scene);
-
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
