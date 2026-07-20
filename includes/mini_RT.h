@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_RT.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:54:24 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/20 00:06:59 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/20 08:48:39 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,5 +254,7 @@ void				free_scene(t_scene *scene);
 */
 int					key_handler(int keycode, void *param);
 int					close_window(void *param);
+void				destroy_mlx(t_app *app);
+void				mlx_error(char *msg, t_app *app);
 
 #endif

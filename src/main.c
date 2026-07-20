@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 11:59:41 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/20 00:05:45 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/20 08:51:48 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	setup_mlx(t_app	*app)
 {
 	app->mlx = mlx_init();
 	if (!app->mlx)
-		exit_error("mlx init failed", app->scene);
+		mlx_error("mlx init failed", app);
 	app->win = mlx_new_window(app->mlx, WIDTH, HEIGHT, "mini_RT");
 	if (!app->win)
-		exit_error("mlx new window failed", app->scene);
+		mlx_error("mlx new window failed", app);
 	app->img.img = mlx_new_image(app->mlx, WIDTH, HEIGHT);
 	if (!app->img.img)
-		exit_error("image failed", app->scene);
+		mlx_error("image failed", app);
 	app->img.addr = mlx_get_data_addr(app->img.img, &app->img.bpp,
 			&app->img.line_len, &app->img.endian);
 }
@@ -48,6 +48,9 @@ int	main(int argc, char **argv)
 	parse_scene(argv[1], &scene);
 	if (!scene.camera_set || !scene.light_set || !scene.ambient_set)
 		exit_error("missing required scene element", &scene);
+	app.mlx = NULL;
+	app.win = NULL;
+	app.img.img = NULL;
 	app.scene = &scene;
 	setup_mlx(&app);
 	mlx_hook(app.win, 17, 0, close_window, &app);
