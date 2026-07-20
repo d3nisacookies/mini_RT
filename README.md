@@ -182,7 +182,6 @@ cy 3,0,0 0,1,0 2 6 0,255,0
 ├── libft/          # Custom C library
 ├── minilibx/       # MiniLibX library
 ├── gnl/            # GetNextLine library
-├── mlx.supp        # Ignore reachable leaks from libX11
 ├── Makefile
 └── README.md
 ```
