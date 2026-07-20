@@ -33,3 +33,17 @@
    ...
    fun:mlx_new_window
 }
+
+{
+   mlx_writev_uninit
+   Memcheck:Param
+   writev(vector[0])
+   fun:writev
+   ...
+   obj:*/libxcb*
+   ...
+   obj:*/libX11*
+   ...
+   fun:mlx_int_wait_first_expose
+   fun:mlx_new_window
+}

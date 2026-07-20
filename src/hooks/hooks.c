@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:22:56 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/20 08:48:22 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/20 09:49:30 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	key_handler(int keycode, void *param)
 	app = (t_app *)param;
 	if (keycode == 65307)
 	{
+		destroy_mlx(app);
 		free_scene(app->scene);
 		exit(0);
 	}

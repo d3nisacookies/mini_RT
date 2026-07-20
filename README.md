@@ -240,3 +240,71 @@ Possible extensions include:
 - Bounding volume hierarchies (BVH) for faster rendering.
 - Soft shadows.
 - Transparency.
+
+## Ray-Object Intersection
+
+### Ray Equation
+
+\[
+P(t)=O+tD
+\]
+
+- `O` = Ray origin
+- `D` = Ray direction
+- `t` = Distance along the ray
+
+---
+
+### Sphere
+
+Sphere equation:
+
+\[
+(P-C)\cdot(P-C)=r^2
+\]
+
+Expanded into:
+
+\[
+at^2+bt+c=0
+\]
+
+Discriminant:
+
+\[
+\Delta=b^2-4ac
+\]
+
+The smallest positive `t` is the intersection.
+
+---
+
+### Plane
+
+Plane equation:
+
+\[
+(P-P_0)\cdot N=0
+\]
+
+Ray-plane intersection:
+
+\[
+t=\frac{(P_0-O)\cdot N}{D\cdot N}
+\]
+
+If `D·N = 0`, the ray is parallel to the plane.
+
+---
+
+### Cylinder
+
+Cylinder body is solved using a quadratic equation:
+
+\[
+at^2+bt+c=0
+\]
+
+The top and bottom caps are treated as disks using the plane intersection equation.
+
+The nearest positive intersection (`t`) among the body and caps is selected.
