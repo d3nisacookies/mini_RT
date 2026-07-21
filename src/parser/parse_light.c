@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akaung <akaung@student.42singapore.sg>     +#+  +:+       +#+        */
+/*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 15:02:28 by akaung            #+#    #+#             */
-/*   Updated: 2026/07/19 23:47:36 by akaung           ###   ########.fr       */
+/*   Updated: 2026/07/20 10:33:37 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	parse_light(char *line, t_scene *scene)
 		free_and_exit(tokens, scene, "Invalid brightness");
 	scene->light.position = parse_vector(tokens[1], tokens, scene);
 	scene->light.brightness = ft_atof(tokens[2]);
-	scene->light.colour = parse_vector(tokens[3], tokens, scene);
+	scene->light.colour = parse_color(tokens[3], tokens, scene);
 	if (scene->light.brightness < 0 || scene->light.brightness > 1)
 		free_and_exit(tokens, scene, "Invalid brightness");
 	scene->light_set = 1;

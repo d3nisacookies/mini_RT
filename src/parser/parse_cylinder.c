@@ -6,7 +6,7 @@
 /*   By: tswe-zin <tswe-zin@student.42singapore.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 19:46:17 by tswe-zin          #+#    #+#             */
-/*   Updated: 2026/07/16 22:43:56 by tswe-zin         ###   ########.fr       */
+/*   Updated: 2026/07/20 10:31:41 by tswe-zin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	parse_cylinder(char *line, t_scene *scene)
 	obj->cylinder.axis = vec_normalize(parse_vector(tokens[2], tokens, scene));
 	obj->cylinder.radius = ft_atof(tokens[3]) / 2.0;
 	obj->cylinder.height = ft_atof(tokens[4]);
-	obj->cylinder.color = parse_vector(tokens[5], tokens, scene);
+	obj->cylinder.color = parse_color(tokens[5], tokens, scene);
 	obj->next = scene->objects;
 	scene->objects = obj;
 	free_tokens(tokens);
